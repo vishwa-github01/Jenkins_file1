@@ -9,25 +9,27 @@ pipeline {
     SERVER_CREDENTIAL = credentials('server-credentials')  // credentials binding plugin need to be installed
     //to bind credentials from jenkins to our env variable
   }
-  tools {
-    //install glob tools config install maven n ver
-    maven 'Maven'
-    gradel
-    // build tools MAVEN Gradle, yarn etc // sh "mvn install"
-    // 3 tools support as of now // config tools
-  }
+  // tools {
+  //   //install glob tools config install maven n ver
+  //   maven 'Maven'
+  //   gradel
+  //   // build tools MAVEN Gradle, yarn etc // sh "mvn install"
+  //   // 3 tools support as of now // config tools
+  // }
   parameters {
     //parameterise your Build to select values
     // string(name: 'VERSION' , defaultValue: '' , description: 'some description')
     choice(name: 'VERSION' , choices: [ '1.0.9', '1.0.8'] , description: 'some description of choices')
-    booleanParam(name: 'executeTest' , defaultValue: true, description: 'some parm description')
+    booleanParam(name: 'executeTest' , defaultValue: true , description: 'some parm description')
   }
 
    stages {
       stage ("build") {
         when {
+          expression {
           // condition to run the stages params
           params.executeTest == true
+          }
         }
        steps {
         echo 'This is the Build Stage'

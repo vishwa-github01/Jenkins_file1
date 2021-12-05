@@ -6,7 +6,7 @@ pipeline {
     // make variable dynamic extract from POM file
     // there variables can be used in any stage
     NEW_VERSION = '1.0.9'
-    SERVER_CREDENTIAL = credentials('ID_of the credentials')  // credentials binding plugin need to be installed
+    SERVER_CREDENTIAL = credentials('server-credentials')  // credentials binding plugin need to be installed
     //to bind credentials from jenkins to our env variable
   }
   tools {
@@ -43,6 +43,7 @@ pipeline {
           env.BRANCH_NAME == 'dev1' || env.BRANCH_NAME == 'main'
           // env.BRANCH_NAME == 'dev1' && <another condition> // and condition
 
+          echo " server credentials are: ${SERVER_CREDENTIAL}"
         }
       }
        steps {
@@ -52,7 +53,7 @@ pipeline {
 
         // ELSE  use SERVER_CREDENTIALS
         withCredentials([
-          usernamePassword(credentials: 'ID_of the credentials' , usernameVariable: 'USER' , passwordVariable: 'PWD' )
+          usernamePassword(credentials: 'server-credentials' , usernameVariable: 'USER' , passwordVariable: 'PWD' )
           ]) {
             sh """
                  ${USER} ${PWD}

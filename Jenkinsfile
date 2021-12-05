@@ -9,10 +9,30 @@ pipeline {
     SERVER_CREDENTIAL = credentials('ID_of the credentials')  // credentials binding plugin need to be installed
     //to bind credentials from jenkins to our env variable
   }
+  tools {
+    //install glob tools config install maven n ver
+    maven 'Maven'
+    gradel
+    // build tools MAVEN Gradle, yarn etc // sh "mvn install"
+    // 3 tools support as of now // config tools
+  }
+  parameters {
+    //parameterise your Build to select values
+    // string(name: 'VERSION' , defaultValue: '' , description: 'some description')
+    choice(name: 'VERSION' , choices: [ '1.0.9', '1.0.8'] , description: 'some description of choices')
+    booleanParam(name: 'executeTest' , defaultValue: true, description: 'some parm description')
+  }
+
    stages {
       stage ("build") {
+        when {
+          // condition to run the stages params
+          params.executeTest == true
+        }
        steps {
         echo 'This is the Build Stage'
+        echo "the param choice of VERSIOn is: ${VERSION}"
+        echo "the choice of the param execute test is : ${executeTest}"
        }
     }
 
@@ -22,6 +42,7 @@ pipeline {
           // condition of expression to run stage if this condition is met
           env.BRANCH_NAME == 'dev1' || env.BRANCH_NAME == 'main'
           // env.BRANCH_NAME == 'dev1' && <another condition> // and condition
+
         }
       }
        steps {
@@ -31,8 +52,12 @@ pipeline {
 
         // ELSE  use SERVER_CREDENTIALS
         withCredentials([
-          usernamePassword(credentials: ID_of the credentials , usernameVariable: USER , passwordVariable: PWD )
-          ])
+          usernamePassword(credentials: 'ID_of the credentials' , usernameVariable: 'USER' , passwordVariable: 'PWD' )
+          ]) {
+            sh """
+                 ${USER} ${PWD}
+            """
+          }
        }
     }
 

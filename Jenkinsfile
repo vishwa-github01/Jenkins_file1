@@ -33,8 +33,9 @@ pipeline {
         }
        steps {
         echo 'This is the Build Stage'
-        echo "the param choice of VERSIOn is: ${VERSION}"
+        echo "the param choice of VERSIOn is: ${params.VERSION}"
         echo "the choice of the param execute test is : ${executeTest}"
+        echo "This is the env variable ${env.NEW_VERSION}"
        }
     }
 
@@ -50,10 +51,10 @@ pipeline {
       }
        steps {
         echo "This is the test Stage"
-        echo "deploying with credentials ${SERVER_CREDENTIALS}"
-        SH "${SERVER_CREDENTIALS}"
+        echo "deploying with credentials ${SERVER_CREDENTIAL}"
+        SH "${SERVER_CREDENTIAL}"
 
-        // ELSE  use SERVER_CREDENTIALS
+        // ELSE  use SERVER_CREDENTIAL
         withCredentials([
           usernamePassword(credentials: 'server-credentials' , usernameVariable: 'USER' , passwordVariable: 'PWD' )
           ]) {

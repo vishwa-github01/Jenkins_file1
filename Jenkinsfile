@@ -45,14 +45,13 @@ pipeline {
           // condition of expression to run stage if this condition is met
           // env.BRANCH_NAME == 'dev1' || env.BRANCH_NAME == 'main'
           // env.BRANCH_NAME == 'dev1' && <another condition> // and condition
-
-          echo " server credentials are: ${SERVER_CREDENTIAL}"
         }
       }
        steps {
         echo "This is the test Stage"
-        echo "deploying with credentials ${SERVER_CREDENTIAL}"
-        SH "${SERVER_CREDENTIAL}"
+        echo "deploying with credentials ${env.SERVER_CREDENTIAL}"
+        sh "${env.SERVER_CREDENTIAL}"
+        echo " server credentials are: ${env.SERVER_CREDENTIAL}"
 
         // ELSE  use SERVER_CREDENTIAL
         withCredentials([

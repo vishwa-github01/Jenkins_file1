@@ -1,10 +1,10 @@
 pipeline {
   agent any 
-    stages {
+   stages {
       stage ("build") {
        steps {
         echo "This is the simplets jenkins file"
        }
-      }
-    }  
+    }
+  }  
 }

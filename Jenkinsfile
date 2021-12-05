@@ -50,16 +50,16 @@ pipeline {
        steps {
         echo "This is the test Stage"
         echo "deploying with credentials ${env.SERVER_CREDENTIAL}"
-        sh "${env.SERVER_CREDENTIAL}"
+        // sh "${env.SERVER_CREDENTIAL}"
         echo " server credentials are: ${env.SERVER_CREDENTIAL}"
 
         // ELSE  use SERVER_CREDENTIAL
         withCredentials([
           usernamePassword(credentials: 'server-credentials' , usernameVariable: 'USER' , passwordVariable: 'PWD' )
           ]) {
-            sh """
+            sh "
                  ${USER} ${PWD}
-            """
+            "
           }
        }
     }

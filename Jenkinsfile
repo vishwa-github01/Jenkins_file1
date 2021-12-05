@@ -18,5 +18,19 @@ pipeline {
         echo "This is the Deploy Stage"
        }
     }
-  }  
+  }
+  
+  post {
+    always {
+    // Always after the stages are runned
+    echo 'Always-post section is running'
+    }
+    success {
+      echo 'Success-post section is running '
+    }
+    
+    failure {
+      echo 'Failure is running only for failure'
+    }
+  }
 }

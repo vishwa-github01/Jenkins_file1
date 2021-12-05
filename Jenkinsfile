@@ -43,7 +43,7 @@ pipeline {
       when {
         expression {
           // condition of expression to run stage if this condition is met
-          env.BRANCH_NAME == 'dev1' || env.BRANCH_NAME == 'main'
+          // env.BRANCH_NAME == 'dev1' || env.BRANCH_NAME == 'main'
           // env.BRANCH_NAME == 'dev1' && <another condition> // and condition
 
           echo " server credentials are: ${SERVER_CREDENTIAL}"

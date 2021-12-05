@@ -54,11 +54,11 @@ pipeline {
         // echo " server credentials are: ${env.SERVER_CREDENTIAL}"
 
         // ELSE  use SERVER_CREDENTIAL
-        withCredentials([
-          usernamePassword(credentials: 'server-credentials' , usernameVariable: 'USER' , passwordVariable: 'PWD' )
-          ]) {
-            sh " ${USER} ${PWD}  "
-          }
+        // withCredentials([
+        //   usernamePassword(credentials: 'server-credentials' , usernameVariable: 'USER' , passwordVariable: 'PWD' )
+        //   ]) {
+        //     sh " ${USER} ${PWD}  "
+        //   }
        }
     }
 
